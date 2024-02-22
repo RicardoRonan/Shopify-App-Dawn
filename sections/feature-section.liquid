@@ -1,0 +1,76 @@
+{% schema %}
+    {
+      "name": "Feature Section",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select a Product"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "text",
+          "id": "feature1",
+          "label": "Feature Point 1",
+          "default": "Feature Point 1"
+        },
+        {
+          "type": "text",
+          "id": "feature2",
+          "label": "Feature Point 2",
+          "default": "Feature Point 2"
+        },
+        {
+          "type": "text",
+          "id": "feature3",
+          "label": "Feature Point 3",
+          "default": "Feature Point 3"
+        }
+      ],
+      "presets": [
+        {
+          "category": "Custom",
+          "name": "Feature Section"
+        }
+      ]
+    }
+    {% endschema %}
+    <div class="feature-section">
+        {% if section.settings.product %}
+          {% assign product = section.settings.product %}
+          <div class="product-info">
+            <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+            <h2>{{ product.title }}</h2>
+          </div>
+        {% endif %}
+        <div class="features">
+          <ul>
+            <li>{{ section.settings.feature1 }}</li>
+            <li>{{ section.settings.feature2 }}</li>
+            <li>{{ section.settings.feature3 }}</li>
+          </ul>
+          {% if section.settings.cta_text %}
+            <a href="{{ product.url }}" class="cta-btn">{{ section.settings.cta_text }}</a>
+          {% endif %}
+        </div>
+      </div>
+      <script>
+        let featureIndex = 0;
+        const featureList = document.getElementById('featureList');
+        const features = featureList.getElementsByTagName('li');
+      
+        function flipFeature() {
+          features[featureIndex].style.display = 'none';
+          featureIndex = (featureIndex + 1) % features.length;
+          features[featureIndex].style.display = 'block';
+        }
+      
+        // Automatically flip features every 5 seconds
+        setInterval(flipFeature, 5000);
+      </script>      
+    
