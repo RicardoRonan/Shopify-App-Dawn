@@ -1,0 +1,38 @@
+.feature-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .product-info {
+    text-align: center;
+  }
+  
+  .product-info img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .feature-points {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .feature-points li {
+    margin-bottom: 5px;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .cta-button:hover {
+    background-color: #555;
+  }
+  

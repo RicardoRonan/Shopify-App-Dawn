@@ -1,0 +1,71 @@
+{% schema %}
+    {
+      "name": "Feature Section",
+      "settings": [
+        {
+          "type": "product_picker",
+          "id": "featured_product",
+          "label": "Select a Product"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Button Text"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "CTA Button Link"
+        },
+        {
+          "type": "text",
+          "id": "feature1",
+          "label": "Feature Point 1"
+        },
+        {
+          "type": "text",
+          "id": "feature2",
+          "label": "Feature Point 2"
+        },
+        {
+          "type": "text",
+          "id": "feature3",
+          "label": "Feature Point 3"
+        },
+        {
+          "type": "text",
+          "id": "feature4",
+          "label": "Feature Point 4"
+        },
+        {
+          "type": "text",
+          "id": "feature5",
+          "label": "Feature Point 5"
+        }
+      ],
+      "presets": [
+        {
+          "category": "Custom"
+        }
+      ]
+    }
+  {% endschema %}
+  
+  {% if section.settings.featured_product %}
+    <div class="feature-section">
+      <div class="product-info">
+        <img src="{{ section.settings.featured_product | product_img_url: 'medium' }}" alt="Product Image">
+        <h2>{{ section.settings.featured_product | product_title }}</h2>
+      </div>
+      <ul class="feature-points">
+        {% for i in (1..5) %}
+          {% assign feature = 'feature' | append: i %}
+          {% if section.settings[feature] != blank %}
+            <li>{{ section.settings[feature] }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <a href="{{ section.settings.cta_link }}" class="cta-button">{{ section.settings.cta_text }}</a>
+    </div>
+  {% endif %}
+  
