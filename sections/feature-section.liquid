@@ -1,3 +1,5 @@
+<script src="{{ 'feature-carousel.js' | asset_url }}" defer="defer"></script>
+
 {% schema %}
     {
       "name": "Feature Section",
@@ -30,6 +32,18 @@
           "id": "feature3",
           "label": "Feature Point 3",
           "default": "Feature Point 3"
+        },
+        {
+          "type": "text",
+          "id": "feature4",
+          "label": "Feature Point 4",
+          "default": "Feature Point 4"
+        },
+        {
+          "type": "text",
+          "id": "feature5",
+          "label": "Feature Point 5",
+          "default": "Feature Point 5"
         }
       ],
       "presets": [
@@ -39,38 +53,137 @@
         }
       ]
     }
-    {% endschema %}
-    <div class="feature-section">
-        {% if section.settings.product %}
-          {% assign product = section.settings.product %}
-          <div class="product-info">
-            <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
-            <h2>{{ product.title }}</h2>
-          </div>
-        {% endif %}
-        <div class="features">
-          <ul>
-            <li>{{ section.settings.feature1 }}</li>
-            <li>{{ section.settings.feature2 }}</li>
-            <li>{{ section.settings.feature3 }}</li>
-          </ul>
-          {% if section.settings.cta_text %}
-            <a href="{{ product.url }}" class="cta-btn">{{ section.settings.cta_text }}</a>
-          {% endif %}
-        </div>
+    {% endschema %}    
+    
+ {%- style -%}
+ .feature-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px; 
+  margin-bottom: 30px;
+  max-width: auto;
+  margin: 0 auto 30px;
+ }
+.cta-btn {
+    display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #000000; 
+  height: 50px;
+  padding: 0 3rem;
+  margin-top: 5px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #000000; 
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  background-color: transparent; 
+}
+
+
+ .product-info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.product-info img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.feature-carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.feature-slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.feature-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-width: 100%;
+}
+
+.carousel-nav {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+.carousel-nav button:focus {
+  outline: none;
+}
+
+.prev {
+  float: left;
+  display:none;
+  
+}
+
+.next {
+    display:none;
+  float: right;
+}
+
+    {%- endstyle -%}
+  <div class="feature-section">
+  {% if section.settings.product %}
+    {% assign product = section.settings.product %}
+    <div class="product-info">
+      <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+      <h2 class="product-title-placeholder">{{ product.title }}</h2> <!-- Placeholder for title -->
+    </div>
+  {% endif %}
+  <div class="feature-carousel">
+    <div class="feature-slides">
+      <div class="feature-card">
+        <h4>{{ section.settings.feature1 }}</h4>
       </div>
-      <script>
-        let featureIndex = 0;
-        const featureList = document.getElementById('featureList');
-        const features = featureList.getElementsByTagName('li');
+      <div class="feature-card">
+        <h4>{{ section.settings.feature2 }}</h4>
+      </div>
+      <div class="feature-card">
+        <h4>{{ section.settings.feature3 }}</h4>
+      </div>
+      <div class="feature-card">
+        <h4>{{ section.settings.feature4 }}</h4>
+      </div>
+      <div class="feature-card">
+        <h4>{{ section.settings.feature5 }}</h4>
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button class="prev">&lt;</button>
+      <button class="next">&gt;</button>
+    </div>
+  </div>
+  {% if section.settings.cta_text %}
+    <a href="{{ product.url }}" class="cta-btn">{{ section.settings.cta_text }}</a>
+  {% endif %}
+</div>
+
+        
       
-        function flipFeature() {
-          features[featureIndex].style.display = 'none';
-          featureIndex = (featureIndex + 1) % features.length;
-          features[featureIndex].style.display = 'block';
-        }
-      
-        // Automatically flip features every 5 seconds
-        setInterval(flipFeature, 5000);
-      </script>      
     
